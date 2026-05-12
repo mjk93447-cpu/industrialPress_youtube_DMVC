@@ -97,3 +97,7 @@ Exclude a candidate if:
 ## PoC Decision
 
 For this PoC, automatic collection means automatic candidate and metadata collection. Training-data ingestion is semi-automatic and gated by rights verification. This is the project baseline for all downstream dataset, model, and evaluation work.
+
+## Related Operations
+
+See `docs/06_youtube_data_pipeline.md` for operational ingestion jobs, directory layout, secrets handling, and retention rules.
