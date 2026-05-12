@@ -1,0 +1,54 @@
+{
+  "strict_test_controls": {
+    "group_disjoint": true,
+    "post_failure_frames_allowed": false,
+    "failure_mode_as_inference_input_allowed": false,
+    "outcome_revealing_text_allowed": false,
+    "excluded_quality_flags": [
+      "hard_cut_near_failure",
+      "object_occluded",
+      "unclear_rights"
+    ]
+  },
+  "timing_metrics": [
+    "mae_seconds",
+    "median_absolute_error_seconds",
+    "tolerance_accuracy_0_5s",
+    "tolerance_accuracy_1_0s",
+    "median_lead_time_seconds",
+    "false_alarm_rate_per_clip",
+    "missed_failure_rate"
+  ],
+  "classification_metrics": [
+    "auroc",
+    "auprc",
+    "f1",
+    "precision_at_80_recall",
+    "expected_calibration_error"
+  ],
+  "heatmap_metrics": [
+    "soft_iou",
+    "dice",
+    "top_k_localization",
+    "pointing_game_accuracy",
+    "calibration_error"
+  ],
+  "experiments": [
+    "center_prior_heatmap",
+    "rgb_temporal_baseline",
+    "rgb_motion_baseline",
+    "rgb_audio_baseline",
+    "tri_modal_baseline",
+    "dmvc_no_diversity",
+    "dmvc_no_alignment",
+    "dmvc_poc"
+  ],
+  "poc_targets": {
+    "median_absolute_error_seconds_max": 1.0,
+    "validation_auroc_min": 0.8,
+    "test_f1_min_if_dataset_sufficient": 0.75,
+    "minimum_approved_clips": 50,
+    "minimum_damage_masked_clips": 20,
+    "minimum_held_out_demo_clips": 10
+  }
+}

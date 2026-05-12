@@ -1,0 +1,59 @@
+{
+  "task_horizons_seconds": [0.5, 1.0, 2.0],
+  "views": {
+    "rgb": {
+      "enabled": true,
+      "inputs": ["frames", "object_crop"],
+      "baseline_encoder": "resnet_temporal_pooling",
+      "strong_encoder_options": ["video_swin", "timesformer", "slowfast"]
+    },
+    "motion": {
+      "enabled": true,
+      "inputs": ["optical_flow", "frame_difference", "boundary_displacement"],
+      "baseline_encoder": "flow_cnn_temporal_conv"
+    },
+    "audio": {
+      "enabled": true,
+      "inputs": ["waveform", "log_mel_spectrogram", "stft_bands", "onset_envelope"],
+      "baseline_encoder": "log_mel_cnn",
+      "uses_audio_confidence": true
+    },
+    "object_context": {
+      "enabled": true,
+      "inputs": ["object_material", "object_geometry", "camera_view"],
+      "baseline_encoder": "categorical_embedding"
+    }
+  },
+  "baseline_ladder": [
+    "rgb_temporal_baseline",
+    "rgb_motion_baseline",
+    "rgb_audio_baseline",
+    "tri_modal_baseline",
+    "dmvc_poc"
+  ],
+  "dmvc": {
+    "view_dropout_probability": 0.25,
+    "use_sparse_view_gating": true,
+    "use_cross_view_temporal_fusion": true,
+    "loss_sweep": {
+      "lambda_align": [0.0, 0.05, 0.1, 0.2],
+      "lambda_div": [0.0, 0.01, 0.05, 0.1],
+      "lambda_sparse": [0.0, 0.001, 0.005]
+    }
+  },
+  "heads": {
+    "event": {
+      "outputs": ["pre_failure_probability", "break_within_k_probability", "time_to_break"]
+    },
+    "damage": {
+      "outputs": ["damage_heatmap_2d"],
+      "losses": ["dice", "focal"]
+    }
+  },
+  "strict_evaluation_controls": {
+    "allow_post_failure_input": false,
+    "allow_failure_mode_as_inference_input": false,
+    "require_group_disjoint_test": true,
+    "allow_outcome_revealing_text_metadata": false
+  }
+}

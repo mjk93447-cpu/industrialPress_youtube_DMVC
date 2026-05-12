@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://industrialpress.local/schemas/dmvc_clip.schema.json",
+  "title": "DMVC Hydraulic Press Clip",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "clip_id",
+    "source_video_id",
+    "source_type",
+    "rights_status",
+    "object_material",
+    "object_geometry",
+    "failure_mode",
+    "camera_view",
+    "duration_seconds",
+    "event_labels",
+    "damage_labels",
+    "quality_flags",
+    "split_group"
+  ],
+  "properties": {
+    "clip_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "source_video_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["youtube", "owned_capture", "licensed_source", "synthetic"]
+    },
+    "rights_status": {
+      "type": "string",
+      "enum": [
+        "creative_commons",
+        "creator_permission",
+        "owned_capture",
+        "licensed_source",
+        "synthetic"
+      ]
+    },
+    "rights_evidence_uri": {
+      "type": ["string", "null"]
+    },
+    "object_material": {
+      "type": "string",
+      "enum": [
+        "glass",
+        "ceramic",
+        "metal",
+        "plastic",
+        "rubber",
+        "wood",
+        "food",
+        "composite",
+        "unknown"
+      ]
+    },
+    "object_geometry": {
+      "type": "string",
+      "enum": [
+        "sphere",
+        "cylinder",
+        "box",
+        "thin_plate",
+        "shell",
+        "irregular",
+        "unknown"
+      ]
+    },
+    "failure_mode": {
+      "type": "string",
+      "enum": [
+        "crack",
+        "shatter",
+        "crumple",
+        "burst",
+        "delamination",
+        "localized_puncture",
+        "extrusion",
+        "no_clear_failure",
+        "unknown"
+      ]
+    },
+    "camera_view": {
+      "type": "string",
+      "enum": [
+        "front",
+        "side",
+        "top_oblique",
+        "close_up",
+        "multi_shot_edited",
+        "unknown"
+      ]
+    },
+    "frame_rate": {
+      "type": ["number", "null"],
+      "exclusiveMinimum": 0
+    },
+    "duration_seconds": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "event_labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["t_contact", "t_pre_start", "t_break", "t_after"],
+      "properties": {
+        "t_contact": { "$ref": "#/$defs/time_label" },
+        "t_pre_start": { "$ref": "#/$defs/time_label" },
+        "t_break": { "$ref": "#/$defs/time_label" },
+        "t_after": { "$ref": "#/$defs/time_label" }
+      }
+    },
+    "damage_labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "post_failure_mask_uri",
+        "object_visible_mask_uri",
+        "damage_points",
+        "damage_confidence"
+      ],
+      "properties": {
+        "post_failure_mask_uri": { "type": ["string", "null"] },
+        "object_visible_mask_uri": { "type": ["string", "null"] },
+        "damage_points": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/damage_point" }
+        },
+        "damage_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "depth_source": {
+          "type": "string",
+          "enum": ["none", "monocular_estimate", "manual_proxy", "synthetic_ground_truth"],
+          "default": "none"
+        },
+        "canonical_mesh_id": { "type": ["string", "null"] },
+        "projected_heatmap_uri": { "type": ["string", "null"] }
+      }
+    },
+    "quality_flags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "heavy_motion_blur",
+          "slow_motion_or_timewarp",
+          "hard_cut_near_failure",
+          "background_music",
+          "dominant_voiceover",
+          "object_occluded",
+          "low_resolution",
+          "non_stationary_camera",
+          "multiple_objects",
+          "unclear_rights"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "split_group": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dataset_split": {
+      "type": ["string", "null"],
+      "enum": ["train", "validation", "test", null]
+    }
+  },
+  "$defs": {
+    "time_label": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_index", "seconds", "confidence"],
+      "properties": {
+        "frame_index": { "type": ["integer", "null"], "minimum": 0 },
+        "seconds": { "type": ["number", "null"], "minimum": 0 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "damage_point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "kind", "confidence"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "kind": {
+          "type": "string",
+          "enum": ["origin", "crack_tip", "puncture_center", "shatter_zone", "unknown"]
+        },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

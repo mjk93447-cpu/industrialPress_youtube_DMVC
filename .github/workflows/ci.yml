@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate JSON schemas and configs
+        run: python scripts/validate_json.py
+
+  build-artifact:
+    needs: validate-json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Package PoC specification bundle
+        run: |
+          mkdir -p dist
+          zip -r dist/dmvc-poc-spec-bundle.zip README.md docs schemas configs scripts/validate_json.py
+
+      - name: Upload specification artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dmvc-poc-spec-bundle
+          path: dist/dmvc-poc-spec-bundle.zip
+          if-no-files-found: error
