@@ -11,6 +11,7 @@ def test_dmvc_poc_model_config_matches_expected_contract(repo_root: Path) -> Non
     assert "baseline_ladder" in cfg
     ladder = cfg["baseline_ladder"]
     assert "rgb_temporal_baseline" in ladder
+    assert "dmvc_lite" in ladder
     assert cfg["views"]["rgb"]["enabled"] is True
 
 

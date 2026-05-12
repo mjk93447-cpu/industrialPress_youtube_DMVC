@@ -12,11 +12,13 @@ license = { text = "MIT" }
 dependencies = [
   "jsonschema>=4.21,<5",
   "numpy>=1.26,<3",
+  "pillow>=10,<12",
   "torch>=2.2,<3",
 ]
 
 [project.optional-dependencies]
 dev = [
+  "build>=1.2,<2",
   "pytest>=8,<9",
   "scikit-learn>=1.4,<2",
 ]

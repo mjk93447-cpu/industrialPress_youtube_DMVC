@@ -14,6 +14,9 @@ def test_phase_zero_required_paths_exist(repo_root: Path) -> None:
     assert ratio >= 1.0
 
 
-def test_future_phases_have_optional_placeholders(repo_root: Path) -> None:
-    optional_ids = {i.item_id for i in roadmap_items(repo_root) if i.optional}
-    assert {"train_cli", "evaluate_cli", "infer_cli"}.issubset(optional_ids)
+def test_future_phase_cli_items_exist(repo_root: Path) -> None:
+    by_id = {i.item_id: i for i in roadmap_items(repo_root)}
+    for item_id in ("preprocess", "train_cli", "evaluate_cli", "infer_cli"):
+        assert item_id in by_id
+        item = by_id[item_id]
+        assert all((repo_root / p).is_file() for p in item.paths)

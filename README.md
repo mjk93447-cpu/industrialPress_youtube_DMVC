@@ -36,7 +36,9 @@ On each push or pull request to `main`, GitHub Actions:
 
 1. Validates JSON syntax for `schemas/` and `configs/`.
 2. Installs the Python package in editable mode, runs `pytest`, and prints `scripts/roadmap_report.py`.
-3. Uploads `dmvc-poc-spec-bundle.zip` with documentation, JSON contracts, `src/`, `tests/`, `fixtures/`, and helper scripts.
+3. Runs `scripts/run_mvp.py --smoke` (crawl→preprocess→train→evaluate→demo) and uploads MVP smoke report artifacts.
+4. Builds and uploads `dmvc-poc-wheel` artifact.
+5. Uploads `dmvc-poc-spec-bundle.zip` with documentation, JSON contracts, `src/`, `tests/`, `fixtures/`, and helper scripts.
 
 That artifact is a **specification bundle**, not an installable ML package or trained model. See `docs/07_executable_poc_development_plan.md` for the roadmap to trainable software and demo artifacts.
 
@@ -46,6 +48,30 @@ That artifact is a **specification bundle**, not an installable ML package or tr
 pip install -e ".[dev]"
 pytest
 python scripts/roadmap_report.py
+```
+
+## Local MVP Automation
+
+```bash
+python scripts/run_mvp.py --smoke
+```
+
+- Final status report: `artifacts/final_mvp_report.json`
+- Per-step logs: `artifacts/mvp_logs/*.log`
+- Metrics: `reports/metrics.json`
+- Visualization outputs: `artifacts/demo/*`
+
+To run risky full-download mode (explicit opt-in):
+
+```bash
+python scripts/run_mvp.py --enable-full-download --allow-risky-download --simulate-download
+```
+
+To download CI artifacts locally:
+
+```bash
+gh run list --limit 5
+gh run download <run-id> -D artifacts_download
 ```
 
 ## PoC Completion Target

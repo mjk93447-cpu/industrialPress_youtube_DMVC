@@ -10,6 +10,7 @@ data/raw_video/
 data/approved_clips/
 data/audio_extracts/
 data/frames/
+data/processed/
 *.mp4
 *.mkv
 *.webm
@@ -39,7 +40,13 @@ Thumbs.db
 dist/
 build/
 *.zip
+artifacts/
+reports/
 
 # Logs
 logs/
 *.log
+
+# Runtime crawl outputs
+data/candidates/
+!data/candidates/samples/

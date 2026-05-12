@@ -1,0 +1,28 @@
+[
+  {
+    "video_id": "abc123",
+    "url": "https://www.youtube.com/watch?v=abc123",
+    "title": "Hydraulic press sample",
+    "description": "mock row",
+    "channel_id": "chan1",
+    "channel_title": "channel one",
+    "published_at": "2026-01-01T00:00:00Z",
+    "license_filter_used": "any",
+    "review_status": "needs_relevance_review",
+    "rights_status": "needs_relevance_review",
+    "api_fetched_at": "2026-01-01T00:00:00Z"
+  },
+  {
+    "video_id": "abc123",
+    "url": "https://www.youtube.com/watch?v=abc123",
+    "title": "Hydraulic press sample duplicate",
+    "description": "mock row dup",
+    "channel_id": "chan1",
+    "channel_title": "channel one",
+    "published_at": "2026-01-01T00:00:00Z",
+    "license_filter_used": "any",
+    "review_status": "needs_relevance_review",
+    "rights_status": "needs_relevance_review",
+    "api_fetched_at": "2026-01-01T00:00:00Z"
+  }
+]

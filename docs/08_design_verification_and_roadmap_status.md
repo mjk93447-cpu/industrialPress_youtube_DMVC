@@ -19,6 +19,10 @@ It answers whether implementation stays aligned with design *right now*, and how
 | Config alignment | `tests/test_config_alignment.py` asserts critical keys in `configs/*.json` match documented evaluation constraints |
 | Runnable ML core | `tests/test_smoke_training.py` runs one Adam step on synthetic video tensors through `RGBTemporalBaseline` |
 | Metrics sanity | `tests/test_metrics.py` covers soft IoU and AUROC helpers used later for evaluation |
+| Gate thresholds | `tests/test_gate_thresholds.py` verifies PASS/FAIL decision boundaries for MAE/AUROC/F1 |
+| Crawl/download mode | `tests/test_youtube_download_mode.py` verifies opt-in full-download path, consent log, and provenance |
+| End-to-end automation | `tests/test_run_mvp_e2e.py` runs `scripts/run_mvp.py --smoke` and validates final report artifacts |
+| Visualization outputs | `tests/test_visualization_outputs.py` verifies heatmap/timeline/card/latent artifacts |
 | Roadmap compliance | `tests/test_roadmap_compliance.py` ensures Phase 0 paths exist and optional Phase 2–4 placeholders remain declared |
 
 Stability baseline: CI runs `pytest` on every push; all tests must pass for merges to stay green.
@@ -38,7 +42,7 @@ Interpreting output:
 - **Required completion ratio** counts only non-optional checklist rows whose paths exist.
 - Optional rows (`scripts/train.py`, `scripts/evaluate.py`, etc.) remain documented placeholders until later phases.
 
-**Snapshot (generated via `python scripts/roadmap_report.py` on a clean checkout):** required completion **100%** (Phase 0 + minimal Phase 1 manifest index). Optional CLIs for preprocessing, training, evaluation, and inference still read as **not present** in the repository, which is expected until Phases 1–4 land.
+**Snapshot (generated via `python scripts/roadmap_report.py` on a clean checkout):** required completion **100%** including `preprocess`, `train_cli`, `evaluate_cli`, and `infer_cli` paths, with local automated smoke MVP execution available through `scripts/run_mvp.py`.
 
 ## Qualitative Assessment (Living Document)
 

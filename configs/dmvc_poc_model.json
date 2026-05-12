@@ -29,6 +29,7 @@
     "rgb_motion_baseline",
     "rgb_audio_baseline",
     "tri_modal_baseline",
+    "dmvc_lite",
     "dmvc_poc"
   ],
   "dmvc": {
