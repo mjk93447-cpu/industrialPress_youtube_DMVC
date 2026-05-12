@@ -22,6 +22,7 @@ The PoC scope is intentionally rights-gated and evaluation-driven:
 - `docs/05_timeline_and_risks.md`: 12-week execution plan, risk register, staffing, and decision gates.
 - `docs/06_youtube_data_pipeline.md`: Operational guide for YouTube API ingestion, directory layout, rights gating, secrets, and retention.
 - `docs/07_executable_poc_development_plan.md`: Plan for a **runnable** PoC (training, evaluation, inference), distinct from the specification-only CI artifact.
+- `docs/08_design_verification_and_roadmap_status.md`: Design verification tests, roadmap completion metrics, stability notes.
 
 ## Machine-Readable Contracts
 
@@ -31,9 +32,21 @@ The PoC scope is intentionally rights-gated and evaluation-driven:
 
 ## Continuous Integration
 
-On each push or pull request to `main`, GitHub Actions validates JSON under `schemas/` and `configs/`, then uploads a zip artifact (`dmvc-poc-spec-bundle`) containing `README.md`, `docs/`, `schemas/`, `configs/`, and `scripts/validate_json.py`.
+On each push or pull request to `main`, GitHub Actions:
+
+1. Validates JSON syntax for `schemas/` and `configs/`.
+2. Installs the Python package in editable mode, runs `pytest`, and prints `scripts/roadmap_report.py`.
+3. Uploads `dmvc-poc-spec-bundle.zip` with documentation, JSON contracts, `src/`, `tests/`, `fixtures/`, and helper scripts.
 
 That artifact is a **specification bundle**, not an installable ML package or trained model. See `docs/07_executable_poc_development_plan.md` for the roadmap to trainable software and demo artifacts.
+
+## Development
+
+```bash
+pip install -e ".[dev]"
+pytest
+python scripts/roadmap_report.py
+```
 
 ## PoC Completion Target
 

@@ -1,0 +1,28 @@
+{
+  "clip_id": "synthetic_fixture_001",
+  "source_video_id": "synthetic",
+  "source_type": "synthetic",
+  "rights_status": "synthetic",
+  "object_material": "metal",
+  "object_geometry": "cylinder",
+  "failure_mode": "crumple",
+  "camera_view": "front",
+  "frame_rate": 24,
+  "duration_seconds": 12.5,
+  "event_labels": {
+    "t_contact": { "frame_index": 120, "seconds": 5.0, "confidence": 1.0 },
+    "t_pre_start": { "frame_index": 168, "seconds": 7.0, "confidence": 0.75 },
+    "t_break": { "frame_index": 192, "seconds": 8.0, "confidence": 1.0 },
+    "t_after": { "frame_index": 210, "seconds": 8.75, "confidence": 0.9 }
+  },
+  "damage_labels": {
+    "post_failure_mask_uri": null,
+    "object_visible_mask_uri": null,
+    "damage_points": [],
+    "damage_confidence": 0.5,
+    "depth_source": "none"
+  },
+  "quality_flags": [],
+  "split_group": "synthetic_lab",
+  "dataset_split": "train"
+}

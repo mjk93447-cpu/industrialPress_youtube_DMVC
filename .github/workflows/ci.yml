@@ -24,8 +24,29 @@ jobs:
       - name: Validate JSON schemas and configs
         run: python scripts/validate_json.py
 
-  build-artifact:
+  test:
     needs: validate-json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package (editable) and dev tools
+        run: pip install -e ".[dev]"
+
+      - name: Run pytest
+        run: pytest -v --tb=short
+
+      - name: Roadmap completion report
+        run: python scripts/roadmap_report.py
+
+  build-artifact:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,7 +55,7 @@ jobs:
       - name: Package PoC specification bundle
         run: |
           mkdir -p dist
-          zip -r dist/dmvc-poc-spec-bundle.zip README.md docs schemas configs scripts/validate_json.py
+          zip -r dist/dmvc-poc-spec-bundle.zip README.md LICENSE docs schemas configs fixtures scripts pyproject.toml src tests
 
       - name: Upload specification artifact
         uses: actions/upload-artifact@v4
