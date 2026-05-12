@@ -21,6 +21,7 @@ The PoC scope is intentionally rights-gated and evaluation-driven:
 - `docs/04_evaluation_plan.md`: Timing, precursor, heatmap, ablation, and generalization metrics.
 - `docs/05_timeline_and_risks.md`: 12-week execution plan, risk register, staffing, and decision gates.
 - `docs/06_youtube_data_pipeline.md`: Operational guide for YouTube API ingestion, directory layout, rights gating, secrets, and retention.
+- `docs/07_executable_poc_development_plan.md`: Plan for a **runnable** PoC (training, evaluation, inference), distinct from the specification-only CI artifact.
 
 ## Machine-Readable Contracts
 
@@ -31,6 +32,8 @@ The PoC scope is intentionally rights-gated and evaluation-driven:
 ## Continuous Integration
 
 On each push or pull request to `main`, GitHub Actions validates JSON under `schemas/` and `configs/`, then uploads a zip artifact (`dmvc-poc-spec-bundle`) containing `README.md`, `docs/`, `schemas/`, `configs/`, and `scripts/validate_json.py`.
+
+That artifact is a **specification bundle**, not an installable ML package or trained model. See `docs/07_executable_poc_development_plan.md` for the roadmap to trainable software and demo artifacts.
 
 ## PoC Completion Target
 
